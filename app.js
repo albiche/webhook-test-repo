@@ -1,3 +1,4 @@
+// app.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('./config');
@@ -8,6 +9,12 @@ const PORT = config.port || 3000;
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
+
+// Log middleware to verify requests
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
 
 // Webhook endpoint
 app.post('/webhook', handleGithubWebhook);
