@@ -1,4 +1,3 @@
-// github-webhook.js
 const crypto = require('crypto');
 const { exec } = require('child_process');
 const config = require('./config');
@@ -6,6 +5,7 @@ const config = require('./config');
 function verifyGithubSignature(req, res, buf, encoding) {
     const signature = req.headers['x-hub-signature'];
     if (!signature) {
+        console.log("Signature missing");
         return res.status(401).send('Signature missing');
     }
 
@@ -14,12 +14,14 @@ function verifyGithubSignature(req, res, buf, encoding) {
     const checksum = Buffer.from(signature, 'utf8');
 
     if (!crypto.timingSafeEqual(digest, checksum)) {
+        console.log("Signature mismatch");
         return res.status(401).send('Signature mismatch');
     }
 }
 
 function handleGithubWebhook(req, res) {
     const event = req.body;
+    console.log("Received event:", event);
 
     if (event.ref === `refs/heads/${config.githubBranch}`) {
         console.log(`Changes detected on branch: ${config.githubBranch}`);
@@ -31,6 +33,8 @@ function handleGithubWebhook(req, res) {
             console.log(`Stdout: ${stdout}`);
             console.error(`Stderr: ${stderr}`);
         });
+    } else {
+        console.log("Event not related to the monitored branch");
     }
 
     res.status(200).send('Webhook received');
