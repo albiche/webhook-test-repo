@@ -1,17 +1,17 @@
 # GitHub Webhook Listener
 
-This project listens for webhook events from a GitHub repository and triggers a local build process when changes are detected on a specific branch.
+Ce projet écoute les événements de webhook d'un dépôt GitHub et déclenche un processus de build local lorsqu'un changement est détecté sur une branche spécifique.
 
-## Setup
+## Configuration
 
-1. Install NodeJS and npm.
-2. Clone this repository.
-3. Run `npm install` to install dependencies.
-4. Configure your GitHub webhook secret and repository details in `config.js`.
-5. Start the server with `node app.js`.
+1. Installez Node.js et npm.
+2. Clonez ce dépôt.
+3. Exécutez `npm install` pour installer les dépendances.
+4. Configurez votre secret de webhook GitHub et les détails du dépôt dans `config.js`.
+5. Démarrez le serveur avec `node app.js`.
 
-## Usage
+## Utilisation
 
-Use localtunnel to expose your local server to the internet:
+Utilisez ngrok pour exposer votre serveur local sur Internet :
 ```bash
-npx localtunnel --port 3000
+ngrok http 3000
