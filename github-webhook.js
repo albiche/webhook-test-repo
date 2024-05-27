@@ -21,7 +21,7 @@ function verifyGithubSignature(req, res, buf, encoding) {
 
 function handleGithubWebhook(req, res) {
     const event = req.body;
-    console.log("Received event:", event);
+    console.log("Received event:", JSON.stringify(event, null, 2));
 
     if (event.ref === `refs/heads/${config.githubBranch}`) {
         console.log(`Changes detected on branch: ${config.githubBranch}`);
